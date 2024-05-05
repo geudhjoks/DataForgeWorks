@@ -1,12 +1,15 @@
-const insertionSort = (arr) => {
-  for (let i = 1; i < arr.length; i++) {
-    let key = arr[i];
-    let j = i - 1;
-    while (j >= 0 && arr[j] > key) {
-      arr[j + 1] = arr[j];
-      j--;
+function findMaxLength(nums) {
+  const map = new Map();
+  map.set(0, -1);
+  let count = 0;
+  let maxLength = 0;
+  for (let i = 0; i < nums.length; i++) {
+    count += nums[i] === 1 ? 1 : -1;
+    if (map.has(count)) {
+      maxLength = Math.max(maxLength, i - map.get(count));
+    } else {
+      map.set(count, i);
     }
-    arr[j + 1] = key;
   }
-  return arr;
-};
+  return maxLength;
+}
