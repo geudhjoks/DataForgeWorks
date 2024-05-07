@@ -1,25 +1,19 @@
-const cocktailShakerSort = (arr) => {
-  let swapped = true;
-  let start = 0;
-  let end = arr.length - 1;
-  while (swapped) {
-    swapped = false;
-    for (let i = start; i < end; i++) {
-      if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-        swapped = true;
-      }
+function trap(height) {
+  let left = 0;
+  let right = height.length - 1;
+  let leftMax = 0;
+  let rightMax = 0;
+  let waterTrapped = 0;
+  while (left < right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= leftMax) leftMax = height[left];
+      else waterTrapped += leftMax - height[left];
+      left++;
+    } else {
+      if (height[right] >= rightMax) rightMax = height[right];
+      else waterTrapped += rightMax - height[right];
+      right--;
     }
-    if (!swapped) break;
-    swapped = false;
-    end--;
-    for (let i = end - 1; i >= start; i--) {
-      if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-        swapped = true;
-      }
-    }
-    start++;
   }
-  return arr;
-};
+  return waterTrapped;
+}
